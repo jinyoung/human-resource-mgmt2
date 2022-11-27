@@ -34,6 +34,16 @@ public class JPAVacationDaysStatusQueryHandler {
         return vacationDaysStatusRepository.findById(query.getUserId());
     }
 
+    @EventHandler
+    public void whenVacationDaysIntialized_then_CREATE_1 (VacationDaysIntializedEvent vacationDaysIntialized) throws Exception{
+            // view 객체 생성
+            VacationDaysStatus vacationDaysStatus = new VacationDaysStatus();
+            // view 객체에 이벤트의 Value 를 set 함
+            vacationDaysStatus.setUserId(vacationDaysIntialized.getUserId());
+            vacationDaysStatus.setDaysLeft(vacationDaysIntialized.getDayCount());
+            // view 레파지 토리에 save
+            vacationDaysStatusRepository.save(vacationDaysStatus);
+    }
 
 
     @EventHandler
