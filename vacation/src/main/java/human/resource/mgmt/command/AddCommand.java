@@ -12,6 +12,8 @@ import lombok.ToString;
 public class AddCommand {
 
 
+    @TargetAggregateIdentifier
+    private String userId;
 
     private Integer dayCount;
 

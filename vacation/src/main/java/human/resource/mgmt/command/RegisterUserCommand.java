@@ -12,7 +12,7 @@ import lombok.ToString;
 public class RegisterUserCommand {
 
 
-    private String userId;
-    private Integer dayCount;
+        private String userId;  // Please comment here if you want user to enter the id directly
+        private Integer dayCount;
 
 }
