@@ -63,37 +63,37 @@ public class VacationController {
 
 
 
-  @RequestMapping(value = "/vacations/cancel",
+  @RequestMapping(value = "/vacations/{id}/cancel",
         method = RequestMethod.PUT,
         produces = "application/json;charset=UTF-8")
-  public CompletableFuture cancel(@RequestBody CancelCommand cancelCommand)
+  public CompletableFuture cancel(@PathVariable("id") String id, @RequestBody CancelCommand cancelCommand)
         throws Exception {
       System.out.println("##### /vacation/cancel  called #####");
-
+      cancelCommand.setId(id);
       // send command
       return commandGateway.send(cancelCommand);
   }
 
 
-  @RequestMapping(value = "/vacations/approve",
+  @RequestMapping(value = "/vacations/{id}/approve",
         method = RequestMethod.PUT,
         produces = "application/json;charset=UTF-8")
-  public CompletableFuture approve(@RequestBody ApproveCommand approveCommand)
+  public CompletableFuture approve(@PathVariable("id") String id, @RequestBody ApproveCommand approveCommand)
         throws Exception {
       System.out.println("##### /vacation/approve  called #####");
-
+      approveCommand.setId(id);
       // send command
       return commandGateway.send(approveCommand);
   }
 
 
-  @RequestMapping(value = "/vacations/confirmused",
+  @RequestMapping(value = "/vacations/{id}/confirmused",
         method = RequestMethod.PUT,
         produces = "application/json;charset=UTF-8")
-  public CompletableFuture confirmUsed(@RequestBody ConfirmUsedCommand confirmUsedCommand)
+  public CompletableFuture confirmUsed(@PathVariable("id") String id, @RequestBody ConfirmUsedCommand confirmUsedCommand)
         throws Exception {
       System.out.println("##### /vacation/confirmUsed  called #####");
-
+      confirmUsedCommand.setId(id);
       // send command
       return commandGateway.send(confirmUsedCommand);
   }

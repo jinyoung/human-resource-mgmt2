@@ -36,25 +36,25 @@ public class VacationDaysLeftController {
   }
 
 
-  @RequestMapping(value = "/vacationDaysLefts/add",
+  @RequestMapping(value = "/vacationDaysLefts/{id}/add",
         method = RequestMethod.PUT,
         produces = "application/json;charset=UTF-8")
-  public CompletableFuture add(@RequestBody AddCommand addCommand)
+  public CompletableFuture add(@PathVariable("id") String id, @RequestBody AddCommand addCommand)
         throws Exception {
       System.out.println("##### /vacationDaysLeft/add  called #####");
-
+      addCommand.setUserId(id);
       // send command
       return commandGateway.send(addCommand);
   }
 
 
-  @RequestMapping(value = "/vacationDaysLefts/use",
+  @RequestMapping(value = "/vacationDaysLefts/{id}/use",
         method = RequestMethod.PUT,
         produces = "application/json;charset=UTF-8")
-  public CompletableFuture use(@RequestBody UseCommand useCommand)
+  public CompletableFuture use(@PathVariable("id") String id, @RequestBody UseCommand useCommand)
         throws Exception {
       System.out.println("##### /vacationDaysLeft/use  called #####");
-
+      useCommand.setUserId(id);
       // send command
       return commandGateway.send(useCommand);
   }

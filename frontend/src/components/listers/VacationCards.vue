@@ -68,8 +68,8 @@
             me.values = temp.data._embedded.vacations;
             
             me.newValue = {
-                'startDate': '2022-11-27',
-                'endDate': '2022-11-27',
+                'startDate': '2022-11-28',
+                'endDate': '2022-11-28',
                 'reason': '',
                 'userId': '',
             }
