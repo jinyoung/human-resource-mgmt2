@@ -38,7 +38,7 @@ public class VacationDaysStatusQueryController {
 
   }
 
-  @GetMapping("/orders/{id}")
+  @GetMapping("/vacationDaysStatuses/{id}")
   public CompletableFuture findById(@PathVariable("id") Long id) {
     VacationDaysStatusSingleQuery query = new VacationDaysStatusSingleQuery();
     query.setId(id);

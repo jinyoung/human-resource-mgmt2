@@ -38,7 +38,7 @@ public class ScheduleQueryController {
 
   }
 
-  @GetMapping("/orders/{id}")
+  @GetMapping("/schedules/{id}")
   public CompletableFuture findById(@PathVariable("id") Long id) {
     ScheduleSingleQuery query = new ScheduleSingleQuery();
     query.setId(id);
