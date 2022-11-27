@@ -60,6 +60,7 @@ public class VacationAggregate {
     @CommandHandler
     public void handle(ApproveCommand command){
 
+        if(command.app)
         VacationApprovedEvent event = new VacationApprovedEvent();
         BeanUtils.copyProperties(command, event);     
 

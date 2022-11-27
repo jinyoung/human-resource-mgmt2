@@ -39,9 +39,9 @@ public class VacationDaysStatusQueryController {
   }
 
   @GetMapping("/orders/{id}")
-  public CompletableFuture findById(@PathVariable("id") Long id) {
+  public CompletableFuture findById(@PathVariable("id") String id) {
     VacationDaysStatusSingleQuery query = new VacationDaysStatusSingleQuery();
-    query.setId(id);
+    query.setUserId(id);
 
       return queryGateway.query(query, ResponseTypes.optionalInstanceOf(VacationDaysStatus.class))
               .thenApply(resource -> {
@@ -51,7 +51,7 @@ public class VacationDaysStatusQueryController {
 
                 EntityModel<VacationDaysStatus> model = EntityModel.of(resource.get());
                 model
-                      .add(Link.of("/vacationDaysStatuses/" + resource.get().getId()).withSelfRel());
+                      .add(Link.of("/vacationDaysStatuses/" + resource.get().getUserId()).withSelfRel());
               
                 return new ResponseEntity<>(model, HttpStatus.OK);
             }).exceptionally(ex ->{

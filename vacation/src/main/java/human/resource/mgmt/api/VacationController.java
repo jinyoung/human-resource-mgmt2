@@ -49,7 +49,7 @@ public class VacationController {
                   VacationAggregate resource = new VacationAggregate();
                   BeanUtils.copyProperties(registerVacationCommand, resource);
 
-                  resource.setId(id);
+                  resource.setId((String)id);
                   
                   EntityModel<VacationAggregate> model = EntityModel.of(resource);
                   model
