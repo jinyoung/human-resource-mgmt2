@@ -29,6 +29,11 @@ public class JPAVacationDaysStatusQueryHandler {
         return vacationDaysStatusRepository.findAll();
     }
 
+    @QueryHandler
+    public Optional<VacationDaysStatus> handle(VacationDaysStatusSingleQuery query) {
+        return vacationDaysStatusRepository.findById(query.getUserId());
+    }
+
 
 
     @EventHandler
