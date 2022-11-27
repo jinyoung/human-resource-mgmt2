@@ -38,7 +38,7 @@ public class VacationStatusQueryController {
 
   }
 
-  @GetMapping("/orders/{id}")
+  @GetMapping("/vacationStatuses/{id}")
   public CompletableFuture findById(@PathVariable("id") String id) {
     VacationStatusSingleQuery query = new VacationStatusSingleQuery();
     query.setId(id);
