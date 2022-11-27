@@ -1,0 +1,58 @@
+server:
+  port: 8088
+
+---
+
+spring:
+  profiles: default
+  cloud:
+    gateway:
+      routes:
+        - id: vacation
+          uri: http://localhost:8081
+          predicates:
+            - Path=/vacations/**,/Vacation/**/vacationDaysLefts/**,/VacationDaysLeft/** /vacationStatuses/**/schedules/**/vacationDaysStatuses/**
+        - id: schedule
+          uri: http://localhost:8082
+          predicates:
+            - Path=/calendars/**,/Calendar/** 
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+
+---
+
+spring:
+  profiles: docker
+  cloud:
+    gateway:
+      routes:
+        - id: vacation
+          uri: http://vacation:8080
+          predicates:
+            - Path=/vacations/**,/Vacation/**/vacationDaysLefts/**,/VacationDaysLeft/** /vacationStatuses/**/schedules/**/vacationDaysStatuses/**
+        - id: schedule
+          uri: http://schedule:8080
+          predicates:
+            - Path=/calendars/**,/Calendar/** 
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+server:
+  port: 8080
