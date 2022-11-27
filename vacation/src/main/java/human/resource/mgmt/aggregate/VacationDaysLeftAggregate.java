@@ -23,6 +23,7 @@ import human.resource.mgmt.event.*;
 @ToString
 public class VacationDaysLeftAggregate {
 
+    @AggregateIdentifier
     private String userId;
     private Integer dayCount;
 
