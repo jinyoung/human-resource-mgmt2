@@ -29,6 +29,11 @@ public class JPAVacationStatusQueryHandler {
         return vacationStatusRepository.findAll();
     }
 
+    @QueryHandler
+    public Optional<VacationStatus> handle(VacationStatusSingleQuery query) {
+        return vacationStatusRepository.findById(query.getId());
+    }
+
     @EventHandler
     public void whenVacationRegistered_then_CREATE_1 (VacationRegisteredEvent vacationRegistered) throws Exception{
             // view 객체 생성

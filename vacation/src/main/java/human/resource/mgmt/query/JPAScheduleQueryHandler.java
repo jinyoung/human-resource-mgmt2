@@ -29,6 +29,11 @@ public class JPAScheduleQueryHandler {
         return scheduleRepository.findAll();
     }
 
+    @QueryHandler
+    public Optional<Schedule> handle(ScheduleSingleQuery query) {
+        return scheduleRepository.findById(query.getUserId());
+    }
+
     @EventHandler
     public void whenScheduleAdded_then_CREATE_1 (ScheduleAddedEvent scheduleAdded) throws Exception{
             // view 객체 생성
