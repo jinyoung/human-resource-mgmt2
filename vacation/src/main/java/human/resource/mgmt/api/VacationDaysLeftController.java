@@ -2,30 +2,26 @@ package human.resource.mgmt.api;
 
 import human.resource.mgmt.aggregate.*;
 import human.resource.mgmt.command.*;
+import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.axonframework.eventsourcing.eventstore.EventStore;
+import org.axonframework.eventsourcing.eventstore.EventStore;
 import org.axonframework.queryhandling.QueryGateway;
-
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.HttpStatus;
-
-import org.springframework.beans.BeanUtils;
-
-
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.Link;
-import org.springframework.http.HttpEntity;
-
-import java.util.concurrent.CompletableFuture;
-
-
-import human.resource.mgmt.aggregate.*;
-import human.resource.mgmt.command.*;
 
 @RestController
 public class VacationDaysLeftController {
@@ -86,16 +82,33 @@ public class VacationDaysLeftController {
                 VacationDaysLeftAggregate resource = new VacationDaysLeftAggregate();
                 BeanUtils.copyProperties(registerUserCommand, resource);
 
-                  resource.setUserId((String)id);
-                  
-                  EntityModel<VacationDaysLeftAggregate> model = EntityModel.of(resource);
-                  model
-                        .add(Link.of("/vacationDaysLefts/" + resource.getUserId()).withSelfRel());
+                resource.setUserId((String) id);
 
-                  return new ResponseEntity<>(model, HttpStatus.OK);
-            }
-      );
+                EntityModel<VacationDaysLeftAggregate> model = EntityModel.of(
+                    resource
+                );
+                model.add(
+                    Link
+                        .of("/vacationDaysLefts/" + resource.getUserId())
+                        .withSelfRel()
+                );
 
-  }
+                return new ResponseEntity<>(model, HttpStatus.OK);
+            });
+    }
 
+    @Autowired
+    EventStore eventStore;
+
+    @GetMapping(value = "/vacationDaysLefts/{id}/events")
+    public ResponseEntity getEvents(@PathVariable("id") String id) {
+        ArrayList resources = new ArrayList<VacationDaysLeftAggregate>();
+        eventStore.readEvents(id).asStream().forEach(resources::add);
+
+        CollectionModel<VacationAggregate> model = CollectionModel.of(
+            resources
+        );
+
+        return new ResponseEntity<>(model, HttpStatus.OK);
+    }
 }
