@@ -1,13 +1,14 @@
 package human.resource.mgmt.event;
 
-
-
-
 import lombok.Data;
 import lombok.ToString;
 
-@ToString
+
+
+
+
 @Data
+@ToString
 public class VacationDaysAddedEvent {
 
     private Long id;
