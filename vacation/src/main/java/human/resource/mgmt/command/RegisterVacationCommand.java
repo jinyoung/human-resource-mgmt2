@@ -13,8 +13,8 @@ import lombok.ToString;
 public class RegisterVacationCommand {
 
 
-        private String id;  // Please comment here if you want user to enter the id directly
-        private Date startDate;
+    private String id;  // Please comment here if you want user to enter the id directly
+    private Date startDate;
     private Date endDate;
     private String reason;
     private String userId;

@@ -16,6 +16,6 @@ public class ApproveCommand {
     @TargetAggregateIdentifier
     private String id;
 
-        private Boolean approveOrReject;
+    private Boolean approveOrReject;
 
 }

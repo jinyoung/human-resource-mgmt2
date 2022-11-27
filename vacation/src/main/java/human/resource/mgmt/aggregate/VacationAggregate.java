@@ -40,10 +40,14 @@ public class VacationAggregate {
         BeanUtils.copyProperties(command, event);     
 
                 //Please uncomment here and implement the createUUID method.
-        //event.setId(createUUID());
+        event.setId(createUUID());
         
         apply(event);
 
+    }
+
+    private Long createUUID() {
+        return java.util.UUID.randomUUID().toString();
     }
 
     @CommandHandler
@@ -60,19 +64,18 @@ public class VacationAggregate {
     @CommandHandler
     public void handle(ApproveCommand command){
 
-        if(command.app)
-        VacationApprovedEvent event = new VacationApprovedEvent();
-        BeanUtils.copyProperties(command, event);     
-
-
-        apply(event);
-
-        VacationRejectedEvent event = new VacationRejectedEvent();
-        BeanUtils.copyProperties(command, event);     
-
-
-        apply(event);
-
+        if(command.getApproveOrReject()){
+            VacationApprovedEvent event = new VacationApprovedEvent();
+            BeanUtils.copyProperties(command, event);     
+    
+            apply(event);
+    
+        }else{
+            VacationRejectedEvent event = new VacationRejectedEvent();
+            BeanUtils.copyProperties(command, event);     
+        
+            apply(event);
+        }
     }
 
     @CommandHandler
