@@ -36,25 +36,25 @@ public class CalendarController {
   }
 
 
-  @RequestMapping(value = "/calendars/add",
+  @RequestMapping(value = "/calendars/{id}/add",
         method = RequestMethod.PUT,
         produces = "application/json;charset=UTF-8")
-  public CompletableFuture add(@RequestBody AddCommand addCommand)
+  public CompletableFuture add(@PathVariable("id") String id, @RequestBody AddCommand addCommand)
         throws Exception {
       System.out.println("##### /calendar/add  called #####");
-
+      addCommand.setUserId(id);
       // send command
       return commandGateway.send(addCommand);
   }
 
 
-  @RequestMapping(value = "/calendars/cancel",
+  @RequestMapping(value = "/calendars/{id}/cancel",
         method = RequestMethod.PUT,
         produces = "application/json;charset=UTF-8")
-  public CompletableFuture cancel(@RequestBody CancelCommand cancelCommand)
+  public CompletableFuture cancel(@PathVariable("id") String id, @RequestBody CancelCommand cancelCommand)
         throws Exception {
       System.out.println("##### /calendar/cancel  called #####");
-
+      cancelCommand.setUserId(id);
       // send command
       return commandGateway.send(cancelCommand);
   }
