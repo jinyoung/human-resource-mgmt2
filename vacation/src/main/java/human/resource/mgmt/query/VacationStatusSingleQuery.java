@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class VacationStatusSingleQuery {
 
-        private Long id;
+        private String id;
 
 }

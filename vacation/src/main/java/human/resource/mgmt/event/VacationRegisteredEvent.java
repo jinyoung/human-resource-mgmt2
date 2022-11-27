@@ -1,14 +1,15 @@
 package human.resource.mgmt.event;
 
+import lombok.Data;
+import lombok.ToString;
+
 import java.util.Date; 
 
 
 
-import lombok.Data;
-import lombok.ToString;
 
-@ToString
 @Data
+@ToString
 public class VacationRegisteredEvent {
 
     private String id;
