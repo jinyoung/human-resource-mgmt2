@@ -14,7 +14,7 @@ public class ApproveCommand {
 
 
     @TargetAggregateIdentifier
-    private Long id;
+    private String id;
     private Date startDate;
     private Date endDate;
     private String reason;
