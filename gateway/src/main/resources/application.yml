@@ -11,11 +11,15 @@ spring:
         - id: vacation
           uri: http://localhost:8081
           predicates:
-            - Path=/vacations/**,/Vacation/**/vacationDaysLefts/**,/VacationDaysLeft/** /vacationStatuses/**/schedules/**/vacationDaysStatuses/**
+            - Path=/vacations/**, /vacationDaysLefts/**, /vacationStatuses/**, /schedules/**, /vacationDaysStatuses/**
         - id: schedule
           uri: http://localhost:8082
           predicates:
-            - Path=/calendars/**,/Calendar/** 
+            - Path=/calendars/**, 
+        - id: frontend
+          uri: http://localhost:8080
+          predicates:
+            - Path=/**
       globalcors:
         corsConfigurations:
           '[/**]':
@@ -38,11 +42,15 @@ spring:
         - id: vacation
           uri: http://vacation:8080
           predicates:
-            - Path=/vacations/**,/Vacation/**/vacationDaysLefts/**,/VacationDaysLeft/** /vacationStatuses/**/schedules/**/vacationDaysStatuses/**
+            - Path=/vacations/**, /vacationDaysLefts/**, /vacationStatuses/**, /schedules/**, /vacationDaysStatuses/**
         - id: schedule
           uri: http://schedule:8080
           predicates:
-            - Path=/calendars/**,/Calendar/** 
+            - Path=/calendars/**, 
+        - id: frontend
+          uri: http://frontend:8080
+          predicates:
+            - Path=/**
       globalcors:
         corsConfigurations:
           '[/**]':

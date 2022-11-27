@@ -14,6 +14,6 @@ public class CancelCommand {
 
     @TargetAggregateIdentifier
     private String userId;
-
+    private List&lt;Schedule&gt; schedules;
 
 }

@@ -36,7 +36,7 @@ public class CalendarController {
   }
 
 
-  @RequestMapping(value = "/add",
+  @RequestMapping(value = "/calendars/add",
         method = RequestMethod.PUT,
         produces = "application/json;charset=UTF-8")
   public CompletableFuture add(@RequestBody AddCommand addCommand)
@@ -48,7 +48,7 @@ public class CalendarController {
   }
 
 
-  @RequestMapping(value = "/cancel",
+  @RequestMapping(value = "/calendars/cancel",
         method = RequestMethod.PUT,
         produces = "application/json;charset=UTF-8")
   public CompletableFuture cancel(@RequestBody CancelCommand cancelCommand)

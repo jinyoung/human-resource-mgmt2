@@ -15,6 +15,9 @@ public class ConfirmUsedCommand {
 
     @TargetAggregateIdentifier
     private String id;
-
+    private Date startDate;
+    private Date endDate;
+    private String reason;
+    private String userId;
 
 }

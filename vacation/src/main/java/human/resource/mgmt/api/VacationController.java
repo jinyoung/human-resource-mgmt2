@@ -63,7 +63,7 @@ public class VacationController {
 
 
 
-  @RequestMapping(value = "/cancel",
+  @RequestMapping(value = "/vacations/cancel",
         method = RequestMethod.PUT,
         produces = "application/json;charset=UTF-8")
   public CompletableFuture cancel(@RequestBody CancelCommand cancelCommand)
@@ -75,7 +75,7 @@ public class VacationController {
   }
 
 
-  @RequestMapping(value = "/approve",
+  @RequestMapping(value = "/vacations/approve",
         method = RequestMethod.PUT,
         produces = "application/json;charset=UTF-8")
   public CompletableFuture approve(@RequestBody ApproveCommand approveCommand)
@@ -87,7 +87,7 @@ public class VacationController {
   }
 
 
-  @RequestMapping(value = "/confirmused",
+  @RequestMapping(value = "/vacations/confirmused",
         method = RequestMethod.PUT,
         produces = "application/json;charset=UTF-8")
   public CompletableFuture confirmUsed(@RequestBody ConfirmUsedCommand confirmUsedCommand)

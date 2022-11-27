@@ -36,7 +36,7 @@ public class VacationDaysLeftController {
   }
 
 
-  @RequestMapping(value = "/add",
+  @RequestMapping(value = "/vacationDaysLefts/add",
         method = RequestMethod.PUT,
         produces = "application/json;charset=UTF-8")
   public CompletableFuture add(@RequestBody AddCommand addCommand)
@@ -48,7 +48,7 @@ public class VacationDaysLeftController {
   }
 
 
-  @RequestMapping(value = "/use",
+  @RequestMapping(value = "/vacationDaysLefts/use",
         method = RequestMethod.PUT,
         produces = "application/json;charset=UTF-8")
   public CompletableFuture use(@RequestBody UseCommand useCommand)
