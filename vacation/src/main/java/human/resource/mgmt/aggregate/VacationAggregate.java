@@ -7,6 +7,8 @@ import static org.axonframework.modelling.command.AggregateLifecycle.*;
 import org.axonframework.spring.stereotype.Aggregate;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.List;
 
 import lombok.Data;
@@ -18,6 +20,7 @@ import java.util.Date;
 
 import human.resource.mgmt.command.*;
 import human.resource.mgmt.event.*;
+import human.resource.mgmt.query.VacationDaysStatusRepository;
 
 @Aggregate
 @Data
@@ -28,18 +31,23 @@ public class VacationAggregate {
     private String id;
     private Date startDate;
     private Date endDate;
+    private int days;
     private String reason;
     private String userId;
     private boolean used;
 
     public VacationAggregate(){}
 
-
+    @Autowired VacationDaysStatusRepository vacationDaysStatusRepository;
 
     @CommandHandler
     public VacationAggregate(RegisterVacationCommand command){
 
-
+        vacationDaysStatusRepository.findById(command.getUserId()).ifPresent(vacationDayLeft -> {
+            if(vacationDayLeft.getDaysLeft() < command.getDays()){
+                throw new IllegalStateException("No vacation days are left to " + command.getUserId());
+            }
+        });
 
         VacationRegisteredEvent event = new VacationRegisteredEvent();
         BeanUtils.copyProperties(command, event);     

@@ -34,7 +34,7 @@ public class PolicyHandler{
 
         UseCommand command = new UseCommand();
         command.setUserId(vacationUsed.getUserId());
-        command.setDayCount(1);
+        command.setDayCount(vacationUsed.getDays());
 
         commandGateway.send(command);
     }
