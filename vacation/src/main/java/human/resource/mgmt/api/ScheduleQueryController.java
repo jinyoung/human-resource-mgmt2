@@ -41,6 +41,8 @@ public class ScheduleQueryController {
   @GetMapping("/orders/{id}")
   public CompletableFuture findById(@PathVariable("id") String id) {
     ScheduleSingleQuery query = new ScheduleSingleQuery();
+
+    //TODO
     query.setUserId(id);
 
       return queryGateway.query(query, ResponseTypes.optionalInstanceOf(Schedule.class))
@@ -50,7 +52,7 @@ public class ScheduleQueryController {
                 }
 
                 EntityModel<Schedule> model = EntityModel.of(resource.get());
-                model
+                model                                             //TODO
                       .add(Link.of("/schedules/" + resource.get().getUserId()).withSelfRel());
               
                 return new ResponseEntity<>(model, HttpStatus.OK);

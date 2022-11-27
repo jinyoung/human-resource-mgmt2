@@ -34,6 +34,8 @@ public class JPAVacationStatusQueryHandler {
             // view 객체 생성
             VacationStatus vacationStatus = new VacationStatus();
             // view 객체에 이벤트의 Value 를 set 함
+
+            //TODO: formatting blank method if the class type is not compilant
             vacationStatus.setId(vacationRegistered.getId());
             vacationStatus.setStartDate(vacationRegistered.getStartDate());
             vacationStatus.setEndDate(vacationRegistered.getEndDate());

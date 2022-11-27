@@ -34,7 +34,7 @@ public class JPAVacationDaysStatusQueryHandler {
     @EventHandler
     public void whenVacationDaysAdded_then_UPDATE_1( VacationDaysAddedEvent vacationDaysAdded) throws Exception{
         // view 객체 조회
-        Optional<VacationDaysStatus> vacationDaysStatusOptional = vacationDaysStatusRepository.findById(vacationDaysAdded.getId());
+        Optional<VacationDaysStatus> vacationDaysStatusOptional = vacationDaysStatusRepository.findById(vacationDaysAdded.getUserId());
 
         if( vacationDaysStatusOptional.isPresent()) {
                 VacationDaysStatus vacationDaysStatus = vacationDaysStatusOptional.get();
@@ -48,7 +48,7 @@ public class JPAVacationDaysStatusQueryHandler {
     @EventHandler
     public void whenVacationDaysUsed_then_UPDATE_2( VacationDaysUsedEvent vacationDaysUsed) throws Exception{
         // view 객체 조회   //TODO:  findByUserId --> fidById
-        Optional<VacationDaysStatus> vacationDaysStatusOptional = vacationDaysStatusRepository.findById(vacationDaysUsed.getId());
+        Optional<VacationDaysStatus> vacationDaysStatusOptional = vacationDaysStatusRepository.findById(vacationDaysUsed.getUserId());
 
         if( vacationDaysStatusOptional.isPresent()) {
                 VacationDaysStatus vacationDaysStatus = vacationDaysStatusOptional.get();

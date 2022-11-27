@@ -39,14 +39,15 @@ public class VacationAggregate {
         VacationRegisteredEvent event = new VacationRegisteredEvent();
         BeanUtils.copyProperties(command, event);     
 
-                //Please uncomment here and implement the createUUID method.
+        //Please uncomment here and implement the createUUID method.
         event.setId(createUUID());
         
         apply(event);
 
     }
 
-    private Long createUUID() {
+    //TODO
+    private String createUUID() {
         return java.util.UUID.randomUUID().toString();
     }
 
