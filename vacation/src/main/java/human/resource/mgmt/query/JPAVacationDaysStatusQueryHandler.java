@@ -45,7 +45,6 @@ public class JPAVacationDaysStatusQueryHandler {
             vacationDaysStatusRepository.save(vacationDaysStatus);
     }
 
-
     @EventHandler
     public void whenVacationDaysAdded_then_UPDATE_1( VacationDaysAddedEvent vacationDaysAdded) throws Exception{
         // view 객체 조회

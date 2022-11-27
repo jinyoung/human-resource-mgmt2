@@ -30,6 +30,7 @@ public class VacationAggregate {
     private Date endDate;
     private String reason;
     private String userId;
+    private boolean used;
 
     public VacationAggregate(){}
 
@@ -71,13 +72,13 @@ public class VacationAggregate {
 
         if(command.getApprove()==null || command.getApprove()==true){
             VacationApprovedEvent event = new VacationApprovedEvent();
-            BeanUtils.copyProperties(command, event);     
+            BeanUtils.copyProperties(this, event);     
     
             apply(event);
     
         }else{
             VacationRejectedEvent event = new VacationRejectedEvent();
-            BeanUtils.copyProperties(command, event);     
+            BeanUtils.copyProperties(this, event);     
         
             apply(event);
         }
@@ -86,8 +87,10 @@ public class VacationAggregate {
     @CommandHandler
     public void handle(ConfirmUsedCommand command){
 
+        if(isUsed()) throw new IllegalStateException("Already Used");
+
         VacationUsedEvent event = new VacationUsedEvent();
-        BeanUtils.copyProperties(command, event);     
+        BeanUtils.copyProperties(this, event);     
 
         apply(event);
 
@@ -101,22 +104,19 @@ public class VacationAggregate {
 
     @EventSourcingHandler
     public void on(VacationCancelledEvent event) {
-        //BeanUtils.copyProperties(event, this);
     }
 
     @EventSourcingHandler
     public void on(VacationApprovedEvent event) {
-        //BeanUtils.copyProperties(event, this);
     }
 
     @EventSourcingHandler
     public void on(VacationRejectedEvent event) {
-        //BeanUtils.copyProperties(event, this);
     }
 
     @EventSourcingHandler
     public void on(VacationUsedEvent event) {
-        //BeanUtils.copyProperties(event, this);
+        setUsed(true);
     }
 
 }

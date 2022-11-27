@@ -35,32 +35,29 @@ public class VacationController {
       this.queryGateway = queryGateway;
   }
 
-  @RequestMapping(value = "/vacations",
-        method = RequestMethod.POST
-      )
-  public CompletableFuture registerVacation(@RequestBody RegisterVacationCommand registerVacationCommand)
-        throws Exception {
+  @RequestMapping(value = "/vacations", method = RequestMethod.POST)
+  public CompletableFuture registerVacation(
+      @RequestBody RegisterVacationCommand registerVacationCommand
+  ) throws Exception {
       System.out.println("##### /vacation/registerVacation  called #####");
 
       // send command
-      return commandGateway.send(registerVacationCommand)            
-            .thenApply(
-            id -> {
-                  VacationAggregate resource = new VacationAggregate();
-                  BeanUtils.copyProperties(registerVacationCommand, resource);
+      return commandGateway
+          .send(registerVacationCommand)
+          .thenApply(id -> {
+              VacationAggregate resource = new VacationAggregate();
+              BeanUtils.copyProperties(registerVacationCommand, resource);
 
-                  resource.setId(id);
-                  
-                  EntityModel<VacationAggregate> model = EntityModel.of(resource);
-                  model
-                        .add(Link.of("/vacations/" + resource.getId()).withSelfRel());
+              resource.setId((String) id);
 
-                  return new ResponseEntity<>(model, HttpStatus.OK);
-            }
-      );
+              EntityModel<VacationAggregate> model = EntityModel.of(resource);
+              model.add(
+                  Link.of("/vacations/" + resource.getId()).withSelfRel()
+              );
 
+              return new ResponseEntity<>(model, HttpStatus.OK);
+          });
   }
-
 
 
   @RequestMapping(value = "/vacations/{id}/cancel",

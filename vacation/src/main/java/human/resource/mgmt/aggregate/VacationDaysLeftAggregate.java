@@ -73,13 +73,13 @@ public class VacationDaysLeftAggregate {
 
     @EventSourcingHandler
     public void on(VacationDaysAddedEvent event) {
-        BeanUtils.copyProperties(event, this);
+       // BeanUtils.copyProperties(event, this);
     }
 
 
     @EventSourcingHandler
     public void on(VacationDaysUsedEvent event) {
-        BeanUtils.copyProperties(event, this);
+       // BeanUtils.copyProperties(event, this);
     }
 
 
