@@ -70,7 +70,7 @@
                 var obj = {}
                 if(val != undefined) {
                     var arr = this.list[val]._links.self.href.split('/');
-                    obj['userId'] = arr[4]; 
+                    
                     
                     
                     

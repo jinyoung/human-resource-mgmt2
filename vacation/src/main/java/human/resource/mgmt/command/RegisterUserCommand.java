@@ -9,10 +9,10 @@ import lombok.ToString;
 
 @ToString
 @Data
-public class UseCommand {
+public class RegisterUserCommand {
 
 
-
-        private Integer dayCount;
+    private String userId;
+    private Integer dayCount;
 
 }

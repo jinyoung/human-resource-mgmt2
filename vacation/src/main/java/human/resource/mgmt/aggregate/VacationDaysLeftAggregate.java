@@ -23,7 +23,6 @@ import human.resource.mgmt.event.*;
 @ToString
 public class VacationDaysLeftAggregate {
 
-    @AggregateIdentifier
     private String userId;
     private Integer dayCount;
 
@@ -51,6 +50,19 @@ public class VacationDaysLeftAggregate {
 
     }
 
+    @CommandHandler
+    public VacationDaysLeftAggregate(RegisterUserCommand command){
+
+        VacationDaysIntializedEvent event = new VacationDaysIntializedEvent();
+        BeanUtils.copyProperties(command, event);     
+
+                //Please uncomment here and implement the createUUID method.
+        //event.setId(createUUID());
+        
+        apply(event);
+
+    }
+
 
 
 
@@ -66,6 +78,12 @@ public class VacationDaysLeftAggregate {
 
     @EventSourcingHandler
     public void on(VacationDaysUsedEvent event) {
+        BeanUtils.copyProperties(event, this);
+    }
+
+
+    @EventSourcingHandler
+    public void on(VacationDaysIntializedEvent event) {
         BeanUtils.copyProperties(event, this);
     }
 

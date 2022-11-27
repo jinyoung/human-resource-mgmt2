@@ -37,7 +37,7 @@
                     @click="save"
                     v-else
             >
-                Save
+                RegisterUser
             </v-btn>
             <v-btn
                     color="deep-purple lighten-2"

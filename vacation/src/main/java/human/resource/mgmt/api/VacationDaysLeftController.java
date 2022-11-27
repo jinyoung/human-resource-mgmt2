@@ -58,4 +58,31 @@ public class VacationDaysLeftController {
       // send command
       return commandGateway.send(useCommand);
   }
+
+  @RequestMapping(value = "/vacationDaysLefts",
+        method = RequestMethod.POST
+      )
+  public CompletableFuture registerUser(@RequestBody RegisterUserCommand registerUserCommand)
+        throws Exception {
+      System.out.println("##### /vacationDaysLeft/registerUser  called #####");
+
+      // send command
+      return commandGateway.send(registerUserCommand)            
+            .thenApply(
+            id -> {
+                  VacationDaysLeftAggregate resource = new VacationDaysLeftAggregate();
+                  BeanUtils.copyProperties(registerUserCommand, resource);
+
+                  resource.setId(id);
+                  
+                  EntityModel<VacationDaysLeftAggregate> model = EntityModel.of(resource);
+                  model
+                        .add(Link.of("/vacationDaysLefts/" + resource.getId()).withSelfRel());
+
+                  return new ResponseEntity<>(model, HttpStatus.OK);
+            }
+      );
+
+  }
+
 }
