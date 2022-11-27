@@ -12,7 +12,7 @@ import java.util.Date;
 @ToString
 public class VacationCancelledEvent {
 
-    private Long id;
+    private String id;
     private Date startDate;
     private Date endDate;
     private String reason;

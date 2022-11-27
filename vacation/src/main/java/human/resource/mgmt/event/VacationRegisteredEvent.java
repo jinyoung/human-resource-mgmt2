@@ -11,7 +11,7 @@ import lombok.ToString;
 @Data
 public class VacationRegisteredEvent {
 
-    private Long id;
+    private String id;
     private Date startDate;
     private Date endDate;
     private String reason;
