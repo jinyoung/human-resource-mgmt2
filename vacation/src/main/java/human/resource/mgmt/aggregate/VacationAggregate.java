@@ -107,24 +107,26 @@ public class VacationAggregate {
     @EventSourcingHandler
     public void on(VacationRegisteredEvent event) {
         BeanUtils.copyProperties(event, this);
-        //setStatus("");
     }
 
     @EventSourcingHandler
     public void on(VacationCancelledEvent event) {
+        BeanUtils.copyProperties(event, this);
     }
 
     @EventSourcingHandler
     public void on(VacationApprovedEvent event) {
+        BeanUtils.copyProperties(event, this);
     }
 
     @EventSourcingHandler
     public void on(VacationRejectedEvent event) {
+        BeanUtils.copyProperties(event, this);
     }
 
     @EventSourcingHandler
     public void on(VacationUsedEvent event) {
-        setUsed(true);
+        BeanUtils.copyProperties(event, this);
     }
 
 }

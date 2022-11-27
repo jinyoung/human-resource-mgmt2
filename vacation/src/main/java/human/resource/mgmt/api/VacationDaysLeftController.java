@@ -5,17 +5,27 @@ import human.resource.mgmt.command.*;
 import java.util.concurrent.CompletableFuture;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.queryhandling.QueryGateway;
-import org.springframework.beans.BeanUtils;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.Link;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+
+import org.springframework.beans.BeanUtils;
+
+
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import org.springframework.http.HttpEntity;
+
+import java.util.concurrent.CompletableFuture;
+
+
+import human.resource.mgmt.aggregate.*;
+import human.resource.mgmt.command.*;
 
 @RestController
 public class VacationDaysLeftController {
@@ -76,18 +86,16 @@ public class VacationDaysLeftController {
                 VacationDaysLeftAggregate resource = new VacationDaysLeftAggregate();
                 BeanUtils.copyProperties(registerUserCommand, resource);
 
-                resource.setUserId((String) id);
+                  resource.setUserId((String)id);
+                  
+                  EntityModel<VacationDaysLeftAggregate> model = EntityModel.of(resource);
+                  model
+                        .add(Link.of("/vacationDaysLefts/" + resource.getUserId()).withSelfRel());
 
-                EntityModel<VacationDaysLeftAggregate> model = EntityModel.of(
-                    resource
-                );
-                model.add(
-                    Link
-                        .of("/vacationDaysLefts/" + resource.getUserId())
-                        .withSelfRel()
-                );
+                  return new ResponseEntity<>(model, HttpStatus.OK);
+            }
+      );
 
-                return new ResponseEntity<>(model, HttpStatus.OK);
-            });
-    }
+  }
+
 }

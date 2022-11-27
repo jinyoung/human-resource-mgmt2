@@ -17,6 +17,6 @@ public class VacationUsedEvent {
     private Date endDate;
     private String reason;
     private String userId;
-    private int days;
+    private Integer days;
 
 }

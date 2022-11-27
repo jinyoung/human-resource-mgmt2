@@ -86,6 +86,7 @@ public class VacationDaysLeftAggregate {
     @EventSourcingHandler
     public void on(VacationDaysIntializedEvent event) {
         BeanUtils.copyProperties(event, this);
+        
     }
 
 

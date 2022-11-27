@@ -25,7 +25,8 @@ public class CalendarAggregate {
 
     @AggregateIdentifier
     private String userId;
-    private List&lt;Schedule&gt; schedules;
+    //TODO
+    private List<Object> schedules;
 
     public CalendarAggregate(){}
 
@@ -61,12 +62,14 @@ public class CalendarAggregate {
     @EventSourcingHandler
     public void on(ScheduleAddedEvent event) {
         BeanUtils.copyProperties(event, this);
+        
     }
 
 
     @EventSourcingHandler
     public void on(ScheduleCanceledEvent event) {
         BeanUtils.copyProperties(event, this);
+        
     }
 
 

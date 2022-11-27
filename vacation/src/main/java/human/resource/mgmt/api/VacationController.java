@@ -1,5 +1,32 @@
 package human.resource.mgmt.api;
 
+import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.axonframework.queryhandling.QueryGateway;
+
+import org.axonframework.eventsourcing.eventstore.EventStore;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.axonframework.eventsourcing.eventstore.EventStore;
+
+import org.springframework.beans.BeanUtils;
+
+
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import org.springframework.http.HttpEntity;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.ArrayList;
+
+
 import human.resource.mgmt.aggregate.*;
 import human.resource.mgmt.command.*;
 import java.util.ArrayList;
@@ -95,31 +122,29 @@ public class VacationController {
     @RequestMapping(
         value = "/vacations/{id}/confirmused",  //TODO
         method = RequestMethod.PUT,
-        produces = "application/json;charset=UTF-8"
-    )
-    public CompletableFuture confirmUsed(
-        @PathVariable("id") String id,
-        @RequestBody ConfirmUsedCommand confirmUsedCommand
-    ) throws Exception {
-        System.out.println("##### /vacation/confirmUsed  called #####");
-        confirmUsedCommand.setId(id);
-        // send command
-        return commandGateway.send(confirmUsedCommand);
-    }
+        produces = "application/json;charset=UTF-8")
+  public CompletableFuture confirmUsed(@PathVariable("id") String id, @RequestBody ConfirmUsedCommand confirmUsedCommand)
+        throws Exception {
+      System.out.println("##### /vacation/confirmUsed  called #####");
+      confirmUsedCommand.setId(id);
+      // send command
+      return commandGateway.send(confirmUsedCommand);
+  }
 
-    @Autowired
-    EventStore eventStore;
 
-    @GetMapping(value = "/vacations/{id}/events")
-    public ResponseEntity getEvents(@PathVariable("id") String id) {
-        ArrayList resources = new ArrayList<VacationAggregate>();
-        eventStore.readEvents(id).asStream().forEach(resources::add);
+  @Autowired
+  EventStore eventStore;
 
-        CollectionModel<VacationAggregate> model = CollectionModel.of(
-            resources
-        );
+  @GetMapping(value="/vacations/{id}/events")
+  public ResponseEntity getEvents(@PathVariable("id") String id){
+      ArrayList resources = new ArrayList<VacationAggregate>(); 
+      eventStore.readEvents(id).asStream().forEach(resources::add);
 
-        return new ResponseEntity<>(model, HttpStatus.OK);
-    }
+      CollectionModel<VacationAggregate> model = CollectionModel.of(resources);
+                
+      return new ResponseEntity<>(model, HttpStatus.OK);
+  } 
+
+
 }
 //>>> Clean Arch / Inbound Adaptor
