@@ -14,6 +14,7 @@ public class AddCommand {
 
     @TargetAggregateIdentifier
     private String userId;
-    private List&lt;Schedule&gt; schedules;
+
+        private String title;
 
 }

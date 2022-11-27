@@ -14,6 +14,7 @@ public class UseCommand {
 
     @TargetAggregateIdentifier
     private String userId;
-    private Integer dayCount;
+
+        private Integer dayCount;
 
 }
