@@ -4,6 +4,7 @@ import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.queryhandling.QueryGateway;
 
 import org.axonframework.eventsourcing.eventstore.EventStore;
+import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,30 +26,12 @@ import org.springframework.http.HttpEntity;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.ArrayList;
-
+import java.util.Optional;
 
 import human.resource.mgmt.aggregate.*;
 import human.resource.mgmt.command.*;
-import java.util.ArrayList;
-import java.util.concurrent.CompletableFuture;
-import org.axonframework.commandhandling.gateway.CommandGateway;
-import org.axonframework.eventsourcing.eventstore.EventStore;
-import org.axonframework.eventsourcing.eventstore.EventStore;
-import org.axonframework.queryhandling.QueryGateway;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.Link;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import human.resource.mgmt.query.VacationDaysStatus;
+import human.resource.mgmt.query.VacationDaysStatusSingleQuery;
 
 //<<< Clean Arch / Inbound Adaptor
 @RestController
@@ -71,6 +54,14 @@ public class VacationController {
     ) throws Exception {
         System.out.println("##### /vacation/registerVacation  called #####");
 
+        VacationDaysStatusSingleQuery query = new VacationDaysStatusSingleQuery();
+        query.setUserId(registerVacationCommand.getUserId());
+        queryGateway.query(query, ResponseTypes.optionalInstanceOf(VacationDaysStatus.class))
+            .get().ifPresent(leftDays -> {
+                registerVacationCommand.setVacationDaysLeft(leftDays.getDaysLeft());
+            });
+
+        
         // send command
         return commandGateway
             .send(registerVacationCommand)

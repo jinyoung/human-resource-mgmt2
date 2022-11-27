@@ -2,7 +2,9 @@ package human.resource.mgmt.aggregate;
 
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
+import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.modelling.command.AggregateIdentifier;
+
 import static org.axonframework.modelling.command.AggregateLifecycle.*;
 import org.axonframework.spring.stereotype.Aggregate;
 
@@ -21,6 +23,7 @@ import java.util.Date;
 import human.resource.mgmt.command.*;
 import human.resource.mgmt.event.*;
 import human.resource.mgmt.query.VacationDaysStatusRepository;
+import human.resource.mgmt.query.VacationDaysStatusSingleQuery;
 
 @Aggregate
 @Data
@@ -43,11 +46,11 @@ public class VacationAggregate {
     @CommandHandler
     public VacationAggregate(RegisterVacationCommand command){
 
-        vacationDaysStatusRepository.findById(command.getUserId()).ifPresent(vacationDayLeft -> {
-            if(vacationDayLeft.getDaysLeft() < command.getDays()){
-                throw new IllegalStateException("No vacation days are left to " + command.getUserId());
-            }
-        });
+        VacationDaysStatusSingleQuery daysLeftQuery = new VacationDaysStatusSingleQuery();
+        daysLeftQuery.setUserId(command.getUserId());
+
+        if(command.getVacationDaysLeft() < command.getDays())
+            throw new IllegalStateException("No vacation days are left to " + command.getUserId());        
 
         VacationRegisteredEvent event = new VacationRegisteredEvent();
         BeanUtils.copyProperties(command, event);     
