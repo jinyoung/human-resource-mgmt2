@@ -6,7 +6,7 @@
         </v-card-title>
 
         <v-card-text>
-            <Boolean label="ApproveOrReject" v-model="value.approveOrReject" :editMode="editMode"/>
+            <Boolean label="Approve" v-model="value.approve" :editMode="editMode"/>
         </v-card-text>
 
         <v-card-actions>
@@ -42,7 +42,7 @@
             value: {},
         }),
         created() {
-            this.value.approveOrReject = false;
+            this.value.approve = false;
         },
         watch: {
         },
