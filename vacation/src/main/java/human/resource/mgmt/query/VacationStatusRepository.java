@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 //@RepositoryRestResource(path = "vacationStatuses", collectionResourceRel = "vacationStatuses")
-public interface VacationStatusRepository extends JpaRepository<VacationStatus, Long> {
+public interface VacationStatusRepository extends JpaRepository<VacationStatus, String> {
 
 /*
     @Override
