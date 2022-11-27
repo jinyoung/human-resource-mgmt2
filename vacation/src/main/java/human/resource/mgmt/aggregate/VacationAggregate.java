@@ -69,7 +69,7 @@ public class VacationAggregate {
     @CommandHandler
     public void handle(ApproveCommand command){
 
-        if(command.getApproveOrReject()){
+        if(command.getApprove()==null || command.getApprove()==true){
             VacationApprovedEvent event = new VacationApprovedEvent();
             BeanUtils.copyProperties(command, event);     
     
@@ -95,7 +95,7 @@ public class VacationAggregate {
 
     @EventSourcingHandler
     public void on(VacationRegisteredEvent event) {
-        //BeanUtils.copyProperties(event, this);
+        BeanUtils.copyProperties(event, this);
         //setStatus("");
     }
 

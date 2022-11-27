@@ -73,11 +73,11 @@ public class VacationDaysLeftController {
                   VacationDaysLeftAggregate resource = new VacationDaysLeftAggregate();
                   BeanUtils.copyProperties(registerUserCommand, resource);
 
-                  resource.setId(id);
+                  resource.setUserId((String)id);
                   
                   EntityModel<VacationDaysLeftAggregate> model = EntityModel.of(resource);
                   model
-                        .add(Link.of("/vacationDaysLefts/" + resource.getId()).withSelfRel());
+                        .add(Link.of("/vacationDaysLefts/" + resource.getUserId()).withSelfRel());
 
                   return new ResponseEntity<>(model, HttpStatus.OK);
             }
