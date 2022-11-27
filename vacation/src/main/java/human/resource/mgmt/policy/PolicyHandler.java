@@ -29,10 +29,26 @@ public class PolicyHandler{
 
     @EventHandler
     //@DisallowReplay
-    public void wheneverVacationUsed_Use(VacationUsedEvent vacationUsed){
-        System.out.println(vacationUsed.toString());
+    public void wheneverVacationRegistered_Use(VacationRegisteredEvent vacationRegistered){
+        System.out.println(vacationRegistered.toString());
 
         UseCommand command = new UseCommand();
+        commandGateway.send(command);
+    }
+    @EventHandler
+    //@DisallowReplay
+    public void wheneverVacationCancelled_Add(VacationCancelledEvent vacationCancelled){
+        System.out.println(vacationCancelled.toString());
+
+        AddCommand command = new AddCommand();
+        commandGateway.send(command);
+    }
+    @EventHandler
+    //@DisallowReplay
+    public void wheneverEmployeeJoined_RegisterUser(EmployeeJoinedEvent employeeJoined){
+        System.out.println(employeeJoined.toString());
+
+        RegisterUserCommand command = new RegisterUserCommand();
         commandGateway.send(command);
     }
 
