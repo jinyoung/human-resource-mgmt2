@@ -33,8 +33,12 @@ public class VacationAggregate {
 
     public VacationAggregate(){}
 
+
+
     @CommandHandler
     public VacationAggregate(RegisterVacationCommand command){
+
+
 
         VacationRegisteredEvent event = new VacationRegisteredEvent();
         BeanUtils.copyProperties(command, event);     
@@ -85,47 +89,35 @@ public class VacationAggregate {
         VacationUsedEvent event = new VacationUsedEvent();
         BeanUtils.copyProperties(command, event);     
 
-
         apply(event);
 
     }
 
-
-
-
-
-
-
-
     @EventSourcingHandler
     public void on(VacationRegisteredEvent event) {
-        BeanUtils.copyProperties(event, this);
+        //BeanUtils.copyProperties(event, this);
+        //setStatus("");
     }
-
 
     @EventSourcingHandler
     public void on(VacationCancelledEvent event) {
-        BeanUtils.copyProperties(event, this);
+        //BeanUtils.copyProperties(event, this);
     }
-
 
     @EventSourcingHandler
     public void on(VacationApprovedEvent event) {
-        BeanUtils.copyProperties(event, this);
+        //BeanUtils.copyProperties(event, this);
     }
-
 
     @EventSourcingHandler
     public void on(VacationRejectedEvent event) {
-        BeanUtils.copyProperties(event, this);
+        //BeanUtils.copyProperties(event, this);
     }
-
 
     @EventSourcingHandler
     public void on(VacationUsedEvent event) {
-        BeanUtils.copyProperties(event, this);
+        //BeanUtils.copyProperties(event, this);
     }
-
 
 }
 
